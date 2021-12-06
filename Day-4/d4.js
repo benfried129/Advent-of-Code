@@ -113,7 +113,7 @@ const checkAllBoards = () => {
     return false
 }
 
-const main1 = () => {
+const runGame1 = () => {
     for (const num of bingoNumbers) {
         runRound(num)
         if (checkAllBoards() !== false) {
@@ -122,7 +122,7 @@ const main1 = () => {
     }
 }
 
-const runGamewithFilter = (filteredBoards, i = 0) => {
+const runGame2 = (filteredBoards, i = 0) => {
     if (filteredBoards.length === 1) {
         return sumUnmarked(filteredBoards[0]) * bingoNumbers[i - 1]
     }
@@ -130,7 +130,7 @@ const runGamewithFilter = (filteredBoards, i = 0) => {
     for (let j = 0; j < filteredBoards.length; j++) {
         markBoard(filteredBoards[j], bingoNumbers[i])
         }
-    return runGamewithFilter(filteredBoards.filter(board => checkBoard(board)), i + 1)
+    return runGame2(filteredBoards.filter(board => checkBoard(board)), i + 1)
 }
 
-console.log(runGamewithFilter(boards, 0))
+console.log(runGame2(boards))
