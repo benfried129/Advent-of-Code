@@ -122,15 +122,24 @@ const runGame1 = () => {
     }
 }
 
+const getFinalAnswer = (losingBoard, i) => {
+    const boardCopy = losingBoard
+    while (!(checkBoard(boardCopy))) {
+        markBoard(boardCopy, bingoNumbers[i])
+        i++
+    }
+    return sumUnmarked(boardCopy) * bingoNumbers[i - 1]
+}
+
 const runGame2 = (filteredBoards, i = 0) => {
     if (filteredBoards.length === 1) {
-        return sumUnmarked(filteredBoards[0]) * bingoNumbers[i - 1]
+        return getFinalAnswer(filteredBoards[0], i)
     }
 
     for (let j = 0; j < filteredBoards.length; j++) {
         markBoard(filteredBoards[j], bingoNumbers[i])
         }
-    return runGame2(filteredBoards.filter(board => checkBoard(board)), i + 1)
+    return runGame2(filteredBoards.filter(board => !checkBoard(board)), i + 1)
 }
 
 console.log(runGame2(boards))
